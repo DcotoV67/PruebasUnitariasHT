@@ -52,7 +52,14 @@ class HashTableTest {
 
         // Con la clave: Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa da el siguiente error: java.lang.ArrayIndexOutOfBoundsException: Index -15 out of bounds for length 16
 
-        String test = "\"";
+        /*
+         Se puede introducir cualquier caracter, esto incluye caracteres como ♣, ⊗, ℜ o ψ. Tambíen podemos escapar unas comillas dobles ", simplemente ponemos \"
+         y la clave pasará a ser ". Se puede poner un salto de linea como clave \n y seguirá funcionando.
+        */
+
+        //REALMENTE FUNCIONA CON CUALQUIER METODO QUE REQUIERA UNA STRING
+
+        String test = "\uD83D\uDE00";
         System.out.println(test.hashCode());
 
         int hash = test.hashCode();
@@ -82,8 +89,7 @@ class HashTableTest {
     @Test
     void get() {
 
-        //Error al intentar obtener una clave que no existe
-        //El método get() coge solo el último elemento que haya en la HT
+        //Si ejecutamos el metodo get() sobre un elemento que no existe o bien hemos borrado con drop() nos retornará null, no confundir con un elemento vacio, es nulo.
 
         Assertions.assertEquals("Elemento1", "Elemento1");
         Assertions.assertEquals("Elemento2", "Elemento2");
@@ -94,10 +100,6 @@ class HashTableTest {
 //        Assertions.assertEquals(null, "Elemento1");
 //        Assertions.assertNull("Elemento2");
 
-        ht.put("1", "Elemento3");
-        ht.put("1", "Elemento1");
-        ht.put("2", "Elemento4");
-        ht.put("3", "Elemento5");
 
         System.out.println(ht.toString());
 
@@ -110,8 +112,9 @@ class HashTableTest {
 
         ht.drop("1");
         Assertions.assertEquals("", "");
-        ht.get("1");
-        ht.get("2");
+        System.out.println(ht.get("1"));
+        System.out.println(ht.get("2"));
+
     }
 
 }
