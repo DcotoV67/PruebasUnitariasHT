@@ -3,7 +3,6 @@ package ex1;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class HashTableTest {
@@ -11,23 +10,28 @@ class HashTableTest {
 
     @Test
     void size() {
+
         Assertions.assertEquals(16,16);
         Assertions.assertEquals(0,0);
         Assertions.assertEquals(6,6);
+
     }
 
     @Test
     void realSize() {
+
         Assertions.assertEquals(16, 16);
+
     }
 
     @Test
     void put() {
+
 //        Assertions.assertEquals("Elemento1","Elemento1");
-//
+
 //        Assertions.assertEquals("Elemento2","Elemento2");
 
-        ht.put(null, "NULO");
+//        ht.put(null, "NULO"); // -> Clave  Nula
 
         ht.put("0", "Elemento0");
         ht.put("a", "Elemento1");
@@ -53,7 +57,15 @@ class HashTableTest {
          Por eso no podemos pasarle un elemento con clave nula, pero si con valor nulo.
         */
 
-        // Con la clave: Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa da el siguiente error: java.lang.ArrayIndexOutOfBoundsException: Index -15 out of bounds for length 16
+        // Con las claves: Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        //                 Ttttttttttttttttttttttttttttttttttt
+        //                 Bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+        //                 Ccccccccccccccccccccccccccccccccccc
+        //                 Rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+
+        // Da el siguiente error: java.lang.ArrayIndexOutOfBoundsException: Index -15 out of bounds for length 16
+
+        // En cambio, con la clave: Lllllllllllllllllllllllllllllllllll no da errores. Todas estas claves tienen una longitud de 35 caracteres
 
         /*
          Se puede introducir cualquier caracter, esto incluye caracteres como ♣, ⊗, ℜ o ψ, incluso funciona con emoticonos. Tambíen podemos escapar unas comillas dobles ", simplemente ponemos \"
@@ -62,7 +74,7 @@ class HashTableTest {
 
         //REALMENTE FUNCIONA CON CUALQUIER METODO QUE REQUIERA UNA STRING
 
-        String test = "\uD83D\uDE00";
+        String test = "Lllllllllllllllllllllllllllllllllll";
         System.out.println(test.hashCode());
 
         int hash = test.hashCode();
@@ -90,13 +102,13 @@ class HashTableTest {
 //        Assertions.assertEquals(null, "Elemento1");
 //        Assertions.assertNull("Elemento2");
 
-
         System.out.println(ht.toString());
 
     }
 
     @Test
     void drop() {
+
         /*
          No podemos ejecutar el método drop() sobre un elemento que no exista pero si sobre un elemento con valor nulo.
         */
