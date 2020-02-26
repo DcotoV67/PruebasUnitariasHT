@@ -27,6 +27,8 @@ class HashTableTest {
 //
 //        Assertions.assertEquals("Elemento2","Elemento2");
 
+        ht.put(null, "NULO");
+
         ht.put("0", "Elemento0");
         ht.put("a", "Elemento1");
         ht.put("b", "Elemento2");
@@ -44,16 +46,17 @@ class HashTableTest {
         ht.put("n", "Elemento14");
         ht.put("o", "Elemento15");
 
-
         /*
          El método put() funciona aún que no le pasemos nada en la string, podemos pasarle lo siguiente: "" y lo insertaría en el bucket[0] con la clave ""
          No pone comillas en la clave, sinó lo que hay entre ellas, en este caso nada, pero nada != null por lo tanto se acepta y se ejecuta el put().
+
+         Por eso no podemos pasarle un elemento con clave nula, pero si con valor nulo.
         */
 
         // Con la clave: Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa da el siguiente error: java.lang.ArrayIndexOutOfBoundsException: Index -15 out of bounds for length 16
 
         /*
-         Se puede introducir cualquier caracter, esto incluye caracteres como ♣, ⊗, ℜ o ψ. Tambíen podemos escapar unas comillas dobles ", simplemente ponemos \"
+         Se puede introducir cualquier caracter, esto incluye caracteres como ♣, ⊗, ℜ o ψ, incluso funciona con emoticonos. Tambíen podemos escapar unas comillas dobles ", simplemente ponemos \"
          y la clave pasará a ser ". Se puede poner un salto de linea como clave \n y seguirá funcionando.
         */
 
@@ -69,20 +72,7 @@ class HashTableTest {
 
         ht.put(test, "Test");
 
-        System.out.println(ht.toString());  // ->     bucket[0] = [0, Elemento0] -> [11, Elemento11]
-                                            //        bucket[1] = [1, Elemento1] -> [12, Elemento12]
-                                            //        bucket[2] = [2, Elemento2] -> [13, Elemento13]
-                                            //        bucket[3] = [3, Elemento3] -> [14, Elemento14]
-                                            //        bucket[4] = [4, Elemento4] -> [15, Elemento15]
-                                            //        bucket[5] = [5, Elemento5] -> [16, Elemento16]
-                                            //        bucket[6] = [6, Elemento6]
-                                            //        bucket[7] = [7, Elemento7]
-                                            //        bucket[8] = [8, Elemento8]
-                                            //        bucket[9] = [9, Elemento9]
-                                            //        bucket[15] = [10, Elemento10]
-
-//        ht.drop("10");
-//        System.out.println(ht.toString());
+        System.out.println(ht.toString());
 
     }
 
@@ -107,11 +97,13 @@ class HashTableTest {
 
     @Test
     void drop() {
-        ht.put("1", "Elemento1");
+        /*
+         No podemos ejecutar el método drop() sobre un elemento que no exista pero si sobre un elemento con valor nulo.
+        */
+        ht.put("1", null);
         ht.put("2", "Elemento2");
 
         ht.drop("1");
-        Assertions.assertEquals("", "");
         System.out.println(ht.get("1"));
         System.out.println(ht.get("2"));
 
