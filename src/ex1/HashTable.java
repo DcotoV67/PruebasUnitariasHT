@@ -38,12 +38,13 @@ public class HashTable {
     /**
      * Returns 'null' if the element is not found.
      */
+    //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     public String get(String key) {
         int hash = getHash(key);
         if(entries[hash] != null) {
             HashEntry temp = entries[hash];
 
-            while( !temp.key.equals(key))
+            while(temp.key.equals(key))
                 temp = temp.next;
 
             return temp.value;
@@ -71,7 +72,7 @@ public class HashTable {
     private int getHash(String key) {
         // piggy backing on java string
         // hashcode implementation.
-        return key.hashCode() % INITIAL_SIZE;
+        return Math.abs(key.hashCode()) % INITIAL_SIZE;
     }
 
     private class HashEntry {
