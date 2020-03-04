@@ -105,7 +105,7 @@ class HashTableTest {
 
         //REALMENTE FUNCIONA CON CUALQUIER METODO QUE REQUIERA UNA STRING
 
-        String test = "12";
+        String test = "17";
         System.out.println(test.hashCode());
 
 
@@ -144,23 +144,30 @@ class HashTableTest {
             borrar elemento en bucket vacio -> el programa no hace nada, puede dar una excepción al borrar algo que no existe, pero no null pointer, stack overflow, o excepciones asi
             borrar elemento que no existe pero está en un bucket con colisiones -> igual que el anterior
             borrar elemento que existe y no colisiona en el final de la lista -> solo ha de borrar ese elemento
-            borrar elememento en el medio de una colision en la lista -> next.prev = next.prev.prev / prev.next = prev.next.next
+            borrar elemento en el medio de una colision en la lista -> next.prev = next.prev.prev / prev.next = prev.next.next
             borrar el ultimo elemento de una colision -> prev.next = null
-            borrar el primer elemento de una colision ->
+    ***         borrar el primer elemento de una colision ->
         */
 
-        /*
-         No podemos ejecutar el método drop() sobre un elemento que no exista pero si sobre un elemento con valor nulo.
-        */
         ht.put("1", null);
         ht.put("12", "HOLA");
         ht.put("a", "ADIOS");
+        ht.put("q", "HEY");
         ht.put("2", "Elemento2");
+
+        ht.put("o", "FINAL");
+
+        ht.put("f", "MITAD");
+        ht.put("17", "BORRAR");
 
         System.out.println(ht.toString());
 
-        ht.drop("4");
         ht.drop("1");
+//        ht.drop("4");
+//        ht.drop("q");
+//        ht.drop("o");
+//        ht.drop("17");
+
 
         System.out.println(ht.toString());
 

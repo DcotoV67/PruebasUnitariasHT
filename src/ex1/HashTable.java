@@ -60,7 +60,7 @@ public class HashTable {
         if(entries[hash] != null) {
 
             HashEntry temp = entries[hash];
-            while( !temp.key.equals(key))
+/**/            while(temp.key.equals(key))
                 temp = temp.next;
 
             if(temp.prev == null) entries[hash] = null;             //esborrar element únic (no col·lissió)
