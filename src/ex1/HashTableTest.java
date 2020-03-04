@@ -11,16 +11,47 @@ class HashTableTest {
     @Test
     void size() {
 
-        Assertions.assertEquals(16,16);
-        Assertions.assertEquals(0,0);
-        Assertions.assertEquals(6,6);
+        /*
+            El código fuente no aumenta el valor de la variable size cuando se añade un elemento a la hashtable con el método put().
+            Por lo tanto he modificado el método put() para que cada vez que se ejecute sume 1 a la variable size.
+
+            Tampoco reduce el valor de size cuando se elimina un elemento con el método drop(), he modificado el método drop() para que
+            cuando se elimine un elemento reste 1 a size.
+        */
+
+        //Size = 0, probamos el método size() sin añadir nada a la hashtable.
+        Assertions.assertEquals(ht.size(), 0);
+        Assertions.assertEquals(0, ht.size());
+
+        //Size = 1, al añadir un elemento a la hashtable size debería ser 1 (0+1).
+        ht.put("1","Elemento1");
+        Assertions.assertEquals(ht.size(), 1);
+        Assertions.assertEquals(1, ht.size());
+
+        //Size = 2, al añadir otro elemento size debería aumentar en 1 pasando a ser 2 (1+1).
+        ht.put("2","Elemento2");
+        Assertions.assertEquals(ht.size(), 2);
+        Assertions.assertEquals(2, ht.size());
+
+        /*
+            Size = 3, al añadir un elemento en un bucket que no esté vacío este también aumenta el valor de size en 1,
+            no sobreescribe el valor que se encontraba antes en el bucket, por lo tanto pasa a ser 3 (2+1).
+         */
+        ht.put("2","Elemento3");
+        Assertions.assertEquals(ht.size(), 3);
+        Assertions.assertEquals(3, ht.size());
+
+        //Size = 2, Al borrar un elemento el tamaño también ha de reducirse, por lo tanto pasa a ser 2 (3-1)
+        ht.drop("1");
+        Assertions.assertEquals(ht.size(), 2);
+        System.out.println(ht.toString());
 
     }
 
     @Test
     void realSize() {
 
-        Assertions.assertEquals(16, 16);
+        Assertions.assertEquals(ht.realSize(), 16);
 
     }
 
@@ -74,7 +105,7 @@ class HashTableTest {
 
         //REALMENTE FUNCIONA CON CUALQUIER METODO QUE REQUIERA UNA STRING
 
-        String test = "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        String test = "12";
         System.out.println(test.hashCode());
 
 
@@ -109,7 +140,6 @@ class HashTableTest {
 
     @Test
     void drop() {
-
         /*
             borrar elemento en bucket vacio -> el programa no hace nada, puede dar una excepción al borrar algo que no existe, pero no null pointer, stack overflow, o excepciones asi
             borrar elemento que no existe pero está en un bucket con colisiones -> igual que el anterior
@@ -123,16 +153,17 @@ class HashTableTest {
          No podemos ejecutar el método drop() sobre un elemento que no exista pero si sobre un elemento con valor nulo.
         */
         ht.put("1", null);
-        ht.put("1", "HOLA");
+        ht.put("12", "HOLA");
+        ht.put("a", "ADIOS");
         ht.put("2", "Elemento2");
 
-//        ht.drop("1");
-        System.out.println(ht.get("1"));
-        System.out.println(ht.get("1"));
+        System.out.println(ht.toString());
 
-//        System.out.println(ht.get("2"));
+        ht.drop("4");
+        ht.drop("1");
 
         System.out.println(ht.toString());
+
 
     }
 
