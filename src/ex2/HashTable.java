@@ -1,4 +1,4 @@
-package ex1;
+package ex2;
 
 // Original source code: https://gist.github.com/amadamala/3cdd53cb5a6b1c1df540981ab0245479
 // Modified by Fernando Porrino Serrano for academic purposes.
@@ -45,8 +45,8 @@ public class HashTable {
         if(entries[hash] != null) {
             HashEntry temp = entries[hash];
 
-            while(temp.key.equals(key))
-                temp = temp.next;
+            //Resultado de la extracción de método (Refactorización)
+            temp = getHashEntry(key, temp);
 
             return temp.value;
         }
@@ -54,13 +54,21 @@ public class HashTable {
         return null;
     }
 
+    //Resultado de hacer la extracción de método, se genera el método getHashEntry() para evitar repetir código en distintos métodos.
+    private HashEntry getHashEntry(String key, HashEntry temp) {
+        while(!temp.key.equals(key))
+            temp = temp.next;
+        return temp;
+    }
+
     public void drop(String key) {
         int hash = getHash(key);
         if(entries[hash] != null) {
 
             HashEntry temp = entries[hash];
-            /**/            while(temp.key.equals(key))
-                temp = temp.next;
+
+            //Resultado de la extracción de método (Refactorización)
+            temp = getHashEntry(key, temp);
 
             if(temp.prev == null) entries[hash] = null;             //esborrar element únic (no col·lissió)
             else{
@@ -132,6 +140,7 @@ public class HashTable {
         /*
           Main idea:
           alphabet = {0, 1, 2}
+
           Step 1: "000"
           Step 2: "001"
           Step 3: "002"
@@ -139,6 +148,7 @@ public class HashTable {
           Step 5: "011"
            ...
           Step N: "222"
+
           All those keys will be hashed and checking if collides with the given one.
         * */
 
@@ -188,7 +198,7 @@ public class HashTable {
 
     public static void main(String[] args) {
         HashTable hashTable = new HashTable();
-
+        
         // Put some key values.
         for(int i=0; i<30; i++) {
             final String key = String.valueOf(i);
